@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutoriales - OrganizaTe</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+  }
+  a { color: #60a5fa; text-decoration: none; }
+  a:hover { color: #93c5fd; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 5%; background: #1e293b; border-bottom: 1px solid #334155;
+  }
+  .topbar .logo { font-size: 1.3rem; font-weight: 700; color: #f1f5f9; }
+  .topbar .logo span { color: #3b82f6; }
+  .topbar a.back { font-size: .85rem; color: #94a3b8; }
+  .topbar a.back i { margin-right: 6px; }
+  .topbar a.back:hover { color: #e2e8f0; }
+
+  .page-header {
+    text-align: center; padding: 4rem 5% 2rem;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  }
+  .page-header h1 { font-size: 2.2rem; font-weight: 700; color: #f1f5f9; }
+  .page-header h1 i { color: #3b82f6; margin-right: 10px; }
+  .page-header p { color: #94a3b8; margin-top: .6rem; font-size: 1.05rem; }
+  .page-header .badge {
+    display: inline-block; background: #3b82f6; color: #fff;
+    font-size: .7rem; font-weight: 600; padding: .2rem .7rem;
+    border-radius: 20px; margin-top: .8rem; letter-spacing: .5px;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 3rem 5%; }
+
+  .tutorial-section { margin-bottom: 3rem; }
+  .tutorial-section h2 {
+    font-size: 1.5rem; font-weight: 700; color: #f1f5f9;
+    border-left: 4px solid #3b82f6; padding-left: 1rem; margin-bottom: 1.5rem;
+  }
+
+  .tutorial-card {
+    background: #1e293b; border: 1px solid #334155; border-radius: 16px;
+    overflow: hidden; transition: border-color .2s;
+  }
+  .tutorial-card:hover { border-color: #3b82f6; }
+
+  .tutorial-card .video-wrap {
+    position: relative; width: 100%; aspect-ratio: 16/9; background: #000;
+  }
+  .tutorial-card .video-wrap iframe {
+    width: 100%; height: 100%; border: none;
+  }
+  .tutorial-card .body {
+    padding: 1.5rem;
+  }
+  .tutorial-card .body .tag {
+    display: inline-block; font-size: .7rem; font-weight: 600;
+    color: #60a5fa; background: rgba(59,130,246,.15);
+    padding: .2rem .7rem; border-radius: 10px; margin-bottom: .6rem;
+  }
+  .tutorial-card .body h3 {
+    font-size: 1.1rem; font-weight: 600; color: #f1f5f9; margin-bottom: .5rem;
+  }
+  .tutorial-card .body p {
+    font-size: .85rem; color: #94a3b8; line-height: 1.6; margin-bottom: .8rem;
+  }
+  .tutorial-card .body .steps {
+    list-style: none; padding: 0;
+  }
+  .tutorial-card .body .steps li {
+    font-size: .82rem; color: #cbd5e1; padding: .35rem 0;
+    display: flex; gap: .6rem; align-items: flex-start;
+    border-bottom: 1px solid #1e293b;
+  }
+  .tutorial-card .body .steps li:last-child { border: none; }
+  .tutorial-card .body .steps li .num {
+    background: #3b82f6; color: #fff; border-radius: 50%;
+    min-width: 22px; height: 22px; display: flex; align-items: center;
+    justify-content: center; font-size: .7rem; font-weight: 700; flex-shrink: 0;
+  }
+  .tutorial-card .body .steps li .txt { color: #cbd5e1; }
+
+  footer {
+    text-align: center; padding: 2rem; color: #475569;
+    font-size: .8rem; border-top: 1px solid #1e293b;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/" class="logo">Organiza<span>Te</span></a>
+  <a href="/" class="back"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
+</div>
+
+<div class="page-header">
+  <h1><i class="fas fa-graduation-cap"></i>Tutoriales</h1>
+  <p>Guías prácticas para sacar el máximo provecho a OrganizaTe</p>
+  <div class="badge"><i class="far fa-clock"></i> 6 tutoriales disponibles</div>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════ GENERAL ═══════════ -->
+  <div class="tutorial-section">
+    <h2><i class="fas fa-rocket"></i> General</h2>
+    <div class="tutorial-card">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube-nocookie.com/embed/7vHPCULa01M" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="body">
+        <span class="tag">Visión general</span>
+        <h3>Recorrido por la Plataforma</h3>
+        <p>Un vistazo rápido a OrganizaTe: conoce la interfaz, los módulos principales y cómo empezar a gestionar tu negocio.</p>
+        <ol class="steps">
+          <li><span class="num">1</span><span class="txt">Conoce el dashboard principal y sus indicadores</span></li>
+          <li><span class="num">2</span><span class="txt">Explora los módulos: proyectos, cotizaciones, clientes</span></li>
+          <li><span class="num">3</span><span class="txt">Navega entre secciones y entiende el flujo de trabajo</span></li>
+          <li><span class="num">4</span><span class="txt">Descubre las herramientas de productividad integradas</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ COTIZACIONES ═══════════ -->
+  <div class="tutorial-section">
+    <h2><i class="fas fa-file-invoice-dollar"></i> Cotizaciones</h2>
+    <div class="tutorial-card">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube-nocookie.com/embed/zulVuCiCeC0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="body">
+        <span class="tag">PDF automático</span>
+        <h3>Crear una Cotización</h3>
+        <p>Aprende a generar cotizaciones profesionales con PDF automático, desde la creación hasta la impresión final.</p>
+        <ol class="steps">
+          <li><span class="num">1</span><span class="txt">Ingresa al módulo de cotizaciones desde el menú principal</span></li>
+          <li><span class="num">2</span><span class="txt">Selecciona "Nueva cotización" y elige o crea el cliente</span></li>
+          <li><span class="num">3</span><span class="txt">Agrega conceptos con cantidades, unidad, precio unitario e importe</span></li>
+          <li><span class="num">4</span><span class="txt">Configura el IVA y aplica descuentos si es necesario</span></li>
+          <li><span class="num">5</span><span class="txt">Guarda la cotización — el PDF se genera automáticamente</span></li>
+          <li><span class="num">6</span><span class="txt">Comparte o imprime el PDF desde la misma pantalla</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PROYECTOS ═══════════ -->
+  <div class="tutorial-section">
+    <h2><i class="fas fa-diagram-project"></i> Proyectos</h2>
+    <div class="tutorial-card">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube-nocookie.com/embed/opTxbmIB73c" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="body">
+        <span class="tag">Kanban + Gantt</span>
+        <h3>Crear un Proyecto</h3>
+        <p>Configura proyectos con presupuesto, fechas y equipo. Organiza tareas con tablero Kanban y da seguimiento con bitácora integrada.</p>
+        <ol class="steps">
+          <li><span class="num">1</span><span class="txt">Ve al módulo de proyectos y haz clic en "Nuevo proyecto"</span></li>
+          <li><span class="num">2</span><span class="txt">Define nombre, descripción, presupuesto y fechas de inicio y fin</span></li>
+          <li><span class="num">3</span><span class="txt">Asigna los miembros del equipo y define sus roles</span></li>
+          <li><span class="num">4</span><span class="txt">Crea tareas con checklist, fechas límite y prioridades</span></li>
+          <li><span class="num">5</span><span class="txt">Arrastra tareas entre columnas en la vista Kanban</span></li>
+          <li><span class="num">6</span><span class="txt">Revisa el avance en el diagrama de Gantt y la bitácora</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ USUARIOS ═══════════ -->
+  <div class="tutorial-section">
+    <h2><i class="fas fa-users"></i> Usuarios</h2>
+    <div class="tutorial-card">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube-nocookie.com/embed/LP0WUHxSFJA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="body">
+        <span class="tag">Gestión de usuarios</span>
+        <h3>Administrar Usuarios</h3>
+        <p>Aprende a invitar, administrar y asignar roles a los miembros de tu equipo dentro de OrganizaTe.</p>
+        <ol class="steps">
+          <li><span class="num">1</span><span class="txt">Accede al módulo de usuarios desde el panel de administración</span></li>
+          <li><span class="num">2</span><span class="txt">Invita nuevos miembros por correo electrónico</span></li>
+          <li><span class="num">3</span><span class="txt">Asigna roles y permisos según las responsabilidades</span></li>
+          <li><span class="num">4</span><span class="txt">Gestiona el estado de cada usuario (activo, suspendido)</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ ACTIVIDADES ═══════════ -->
+  <div class="tutorial-section">
+    <h2><i class="fas fa-chart-line"></i> Actividades</h2>
+    <div class="tutorial-card">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube-nocookie.com/embed/ptRSVsh6Z4k" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="body">
+        <span class="tag">Bitácora</span>
+        <h3>Registro de Actividades</h3>
+        <p>Lleva el control de todas las actividades y eventos registrados en la plataforma para dar seguimiento a cada acción.</p>
+        <ol class="steps">
+          <li><span class="num">1</span><span class="txt">Ingresa al módulo de actividades desde el menú lateral</span></li>
+          <li><span class="num">2</span><span class="txt">Filtra por fecha, usuario o tipo de actividad</span></li>
+          <li><span class="num">3</span><span class="txt">Revisa los detalles de cada evento registrado</span></li>
+          <li><span class="num">4</span><span class="txt">Exporta el historial para respaldo o auditoría</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ FINANZAS ═══════════ -->
+  <div class="tutorial-section">
+    <h2><i class="fas fa-coins"></i> Finanzas</h2>
+    <div class="tutorial-card">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube-nocookie.com/embed/y7YzNQ-stBo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="body">
+        <span class="tag">Gastos e Ingresos</span>
+        <h3>Controlar Gastos e Ingresos</h3>
+        <p>Registra cada gasto e ingreso por proyecto con categorías, cuentas y aprobaciones. Visualiza la rentabilidad en tiempo real y exporta reportes financieros.</p>
+        <ol class="steps">
+          <li><span class="num">1</span><span class="txt">Accede al módulo de gastos e ingresos desde el menú principal</span></li>
+          <li><span class="num">2</span><span class="txt">Registra un gasto por proyecto con su categoría y cuenta</span></li>
+          <li><span class="num">3</span><span class="txt">Registra los ingresos del proyecto y revisa el período</span></li>
+          <li><span class="num">4</span><span class="txt">Consulta la rentabilidad del proyecto en tiempo real</span></li>
+          <li><span class="num">5</span><span class="txt">Exporta los reportes financieros para tu contabilidad</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  OrganizaTe &copy; 2026 &mdash; Tutoriales
+</footer>
+
+</body>
+</html>

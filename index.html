@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OrganizaTe - Gestión de Proyectos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: Inter, sans-serif; color: #212121; background: #f5f5f5; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 5%; background: rgba(255,255,255,.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e0e0e0; }
+  .logo { font-size: 1.5rem; font-weight: 800; color: #212121; text-decoration: none; }
+  .logo span { color: #1976D2; }
+  nav a { text-decoration: none; color: #757575; margin-left: 2rem; font-weight: 500; font-size: .9rem; transition: color .2s; }
+  nav a:hover { color: #1976D2; }
+  .btn-nav { background: #1976D2; color: #fff !important; padding: .6rem 1.5rem; border-radius: 8px; font-weight: 600; }
+  .btn-nav:hover { background: #1565C0 !important; }
+
+  section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+  section h2 { text-align: center; font-size: 2rem; font-weight: 700; margin-bottom: .8rem; color: #212121; }
+  section > p.sub { text-align: center; color: #757575; margin-bottom: 3rem; font-size: 1.05rem; }
+
+  /* Hero */
+  .hero { display: flex; align-items: center; justify-content: space-between; padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+  .hero-text { flex: 1; }
+  .hero-text h1 { font-size: 3rem; font-weight: 800; line-height: 1.15; margin-bottom: 1.5rem; color: #212121; }
+  .hero-text p { font-size: 1.1rem; color: #757575; line-height: 1.7; margin-bottom: 2rem; max-width: 540px; }
+  .hero-btns { display: flex; flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+  .hero-btns-row { display: flex; gap: 1rem; }
+  .btn-primary { background: #1976D2; color: #fff; padding: .9rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; transition: transform .2s; display: inline-block; }
+  .btn-primary:hover { transform: translateY(-2px); background: #1565C0; }
+  .btn-secondary { border: 2px solid #e0e0e0; color: #424242; padding: .9rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; transition: .2s; }
+  .btn-secondary:hover { border-color: #1976D2; color: #1976D2; }
+  .btn-app { background: #43A047; color: #fff; padding: .9rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; transition: transform .2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-app:hover { transform: translateY(-2px); background: #388E3C; }
+  .hero-image { flex: 1; text-align: center; }
+  .hero-image div { font-size: 6rem; line-height: 1; }
+
+  /* How it works */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; counter-reset: step; }
+  .step { text-align: center; padding: 1.5rem; }
+  .step-num { width: 48px; height: 48px; margin: 0 auto 1rem; background: #1976D2; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+  .step h3 { margin-bottom: .5rem; color: #212121; font-size: 1.1rem; }
+  .step p { color: #757575; font-size: .9rem; line-height: 1.6; }
+
+  /* Features */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; }
+  .card { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,.06); transition: transform .2s; border: 1px solid #e0e0e0; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 4px 20px rgba(25,118,210,.1); }
+  .card .icon { font-size: 2rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1.1rem; margin-bottom: .4rem; color: #212121; }
+  .card .tag { display: inline-block; font-size: .7rem; font-weight: 600; color: #1976D2; background: #E3F2FD; padding: .15rem .6rem; border-radius: 10px; margin-bottom: .6rem; }
+  .card p { color: #757575; font-size: .9rem; line-height: 1.7; }
+  .card ul { list-style: none; margin-top: .6rem; }
+  .card ul li { color: #616161; font-size: .85rem; padding: .2rem 0; }
+  .card ul li::before { content: "✓ "; color: #1976D2; font-weight: 700; }
+
+  /* Video */
+  .video-wrapper { max-width: 800px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.1); }
+  .video-wrapper iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+  .tutorials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  @media (max-width: 700px) { .tutorials-grid { grid-template-columns: 1fr; } }
+
+  .tutorials-banner {
+    display: flex; align-items: center; gap: 1rem;
+    background: #E3F2FD; border: 1px solid #90CAF9; border-radius: 12px;
+    padding: 1rem 1.5rem; margin-bottom: 2rem;
+  }
+  .tutorials-icon { font-size: 1.8rem; }
+  .tutorials-text { flex: 1; color: #1565C0; font-size: .9rem; }
+  .tutorials-text strong { font-weight: 700; }
+  .btn-tutorials {
+    background: #1976D2; color: #fff; padding: .5rem 1.2rem;
+    border-radius: 8px; text-decoration: none; font-weight: 600;
+    font-size: .85rem; white-space: nowrap; transition: .2s;
+  }
+  .btn-tutorials:hover { background: #1565C0; transform: translateY(-1px); }
+
+  /* Pricing */
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+  .plan { background: #fff; border-radius: 20px; padding: 1.5rem 1rem; border: 1px solid #e0e0e0; text-align: center; transition: .2s; display: flex; flex-direction: column; }
+  .plan:hover { box-shadow: 0 8px 32px rgba(25,118,210,.1); border-color: #1976D2; }
+  .plan.popular { border: 2px solid #1976D2; position: relative; }
+  .plan.popular::before { content: "RECOMENDADO"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #1976D2; color: #fff; padding: .2rem .8rem; border-radius: 20px; font-size: .65rem; font-weight: 700; letter-spacing: 1px; }
+  .plan h3 { font-size: 1rem; margin-bottom: .3rem; color: #212121; }
+  .plan .users { font-size: .8rem; color: #757575; margin-bottom: .5rem; }
+  .plan .price { font-size: 1.6rem; font-weight: 800; color: #1976D2; margin-bottom: 1rem; }
+  .plan .price span { font-size: .8rem; font-weight: 400; color: #757575; }
+  .btn-plan { background: #1976D2; color: #fff; padding: .6rem 1.2rem; border-radius: 10px; text-decoration: none; font-weight: 600; display: inline-block; transition: .2s; font-size: .85rem; }
+  .btn-plan:hover { background: #1565C0; transform: translateY(-2px); }
+  .plan-note { font-size: .75rem; color: #757575; margin-bottom: .8rem; line-height: 1.4; }
+
+  /* FAQ */
+  .faq-list { max-width: 700px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid #e0e0e0; padding: 1.2rem 0; }
+  .faq-q { font-weight: 600; color: #212121; font-size: .95rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: "+"; font-size: 1.2rem; color: #1976D2; font-weight: 700; }
+  .faq-a { color: #616161; font-size: .9rem; line-height: 1.6; margin-top: .6rem; display: none; }
+  .faq-item.open .faq-a { display: block; }
+  .faq-item.open .faq-q::after { content: "–"; }
+
+  /* CTA */
+  .cta { background: linear-gradient(135deg, #1976D2, #1565C0); color: #fff; text-align: center; padding: 4rem 2rem; margin-top: 3rem; max-width: 100%; border-radius: 0; }
+  .cta h2 { font-size: 2rem; margin-bottom: .8rem; }
+  .cta p { font-size: 1.1rem; margin-bottom: 2rem; opacity: .9; text-align: center; }
+  .cta .btn-primary { background: #fff; color: #1976D2; }
+  .cta .btn-primary:hover { background: #f5f5f5; }
+
+  footer { text-align: center; padding: 2rem; color: #9e9e9e; font-size: .8rem; border-top: 1px solid #e0e0e0; }
+
+  @media (max-width: 900px) {
+    .hero-text h1 { font-size: 2.2rem; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    section, .hero { padding: 3rem 5%; }
+  }
+  @media (max-width: 700px) {
+    .hero { flex-direction: column; text-align: center; padding: 2.5rem 5%; }
+    .hero-text p { max-width: 100%; }
+    .hero-btns { align-items: center; }
+    .hero-btns-row { flex-direction: column; align-items: center; gap: 0.8rem; }
+    .hero-btns a, .hero-btns-row a { width: 100%; max-width: 260px; text-align: center; }
+    .steps { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+    .cta { padding: 3rem 1.5rem; }
+    .cta h2 { font-size: 1.5rem; }
+    .cta p { font-size: 1rem; }
+    .hero-text h1 { font-size: 1.8rem; }
+  }
+  @media (max-width: 600px) {
+    nav { flex-direction: column; gap: 0.5rem; padding: 0.8rem 5%; }
+    nav > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+    nav a { margin: 0; font-size: 0.8rem; }
+    .btn-nav { padding: 0.4rem 1rem; }
+    .hero-text h1 { font-size: 1.5rem; }
+    section h2 { font-size: 1.5rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Organiza<span>Te</span></a>
+  <div>
+    <a href="#como-funciona">Cómo Funciona</a>
+    <a href="#funciones">Funciones</a>
+    <a href="#video">Video</a>
+    <a href="#planes">Planes</a>
+    <a href="#faq">FAQ</a>
+    <a href="/register" class="btn-nav">Comenzar Gratis</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Gestiona tus proyectos</h1>
+    <p>OrganizaTe es la plataforma todo-en-uno para administrar proyectos, tareas, recursos, gastos y equipos.</p>
+    <div class="hero-btns">
+      <div class="hero-btns-row">
+        <a href="/register" class="btn-primary">Comenzar Gratis</a>
+        <a href="#como-funciona" class="btn-secondary">Conocer Más</a>
+      </div>
+      <a href="https://organizate.mchtec.net" class="btn-app">📲 Ir a la App</a>
+      <a href="/descargas/organizate.apk" class="btn-app" download>⬇️ Descargar App Android (APK)</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div>📊</div>
+  </div>
+</section>
+
+<!-- ═══════════ CÓMO FUNCIONA ═══════════ -->
+<section id="como-funciona">
+  <h2>Cómo funciona</h2>
+  <p class="sub">En tres pasos simples</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Registra tu empresa</h3>
+      <p>Crea tu cuenta gratuita, configura los datos de tu organización e invita a los miembros de tu equipo con el nivel de acceso que necesiten.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Organiza tu trabajo</h3>
+      <p>Crea proyectos con presupuesto y fechas, asigna tareas, agrega checklist y recursos. Visualiza el avance en Kanban o diagrama de Gantt.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Da seguimiento</h3>
+      <p>Controla gastos e ingresos por proyecto, genera cotizaciones con PDF automático, y consulta reportes de rentabilidad en tiempo real.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FUNCIONES ═══════════ -->
+<section id="funciones">
+  <h2>Todo lo que necesitas</h2>
+  <p class="sub">Cada herramienta diseñada para que trabajes sin fricción</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">📋</div>
+      <span class="tag">Organiza</span>
+      <h3>Proyectos</h3>
+      <p>Crea proyectos con presupuesto, fechas de inicio y fin, y checklist de avance. Visualízalos en Kanban para arrastrar tareas entre etapas, o en Gantt para ver la línea de tiempo completa.</p>
+      <ul>
+        <li>Presupuesto por proyecto</li>
+        <li>Vista Kanban y Gantt</li>
+        <li>Bitácora integrada</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon">✅</div>
+      <span class="tag">Distribuye</span>
+      <h3>Tareas</h3>
+      <p>Asigna tareas a los miembros del equipo con fechas límite, prioridades y checklist. Cada tarea tiene su propia bitácora para registrar el progreso y adjuntar archivos.</p>
+      <ul>
+        <li>Checklist por tarea</li>
+        <li>Asignación de recursos</li>
+        <li>Historial de cambios</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon">📄</div>
+      <span class="tag">Cotiza</span>
+      <h3>Cotizaciones</h3>
+      <p>Genera cotizaciones profesionales con conceptos, cantidades y precios. El PDF se genera automáticamente al guardar y se vincula al proyecto. Incluye búsqueda de productos SAT.</p>
+      <ul>
+        <li>PDF automático</li>
+        <li>Catálogo SAT integrado</li>
+        <li>IVA por defecto configurable</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon">💰</div>
+      <span class="tag">Controla</span>
+      <h3>Gastos e Ingresos</h3>
+      <p>Registra cada gasto e ingreso por proyecto con categorías, cuentas y aprobaciones. Visualiza la rentabilidad en tiempo real y exporta reportes financieros.</p>
+      <ul>
+        <li>Gastos por proyecto</li>
+        <li>Control de ingresos</li>
+        <li>Reportes de rentabilidad</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon">👥</div>
+      <span class="tag">Administra</span>
+      <h3>Equipos y Usuarios</h3>
+      <p>Invita a tu equipo con roles y permisos granulares. Cada usuario ve solo lo que necesita. Define niveles: administrador, director, líder de proyecto o colaborador.</p>
+      <ul>
+        <li>Roles y permisos</li>
+        <li>Invitación por correo</li>
+        <li>Múltiples organizaciones</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon">📊</div>
+      <span class="tag">Analiza</span>
+      <h3>Reportes</h3>
+      <p>Consulta el progreso de tus proyectos con gráficas, exporta reportes de cobranza y ventas, y visualiza indicadores clave en el dashboard principal.</p>
+      <ul>
+        <li>Dashboard ejecutivo</li>
+        <li>Reportes de cobranza</li>
+        <li>Exportación a PDF</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIDEO ═══════════ -->
+<section id="video">
+  <h2>Vélo en acción</h2>
+  <p class="sub">Un recorrido rápido por la plataforma</p>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/7vHPCULa01M" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="tutorials-banner" style="margin-top: 1.5rem; margin-bottom: 0;">
+    <div class="tutorials-icon">🎓</div>
+    <div class="tutorials-text">
+      <strong>¿Aprendiendo?</strong> Mira nuestros tutoriales rápidos en video
+    </div>
+    <a href="/tutoriales" class="btn-tutorials">Ver Tutoriales →</a>
+  </div>
+</section>
+
+<!-- ═══════════ PLANES ═══════════ -->
+<section id="planes">
+  <h2>Planes flexibles</h2>
+  <p class="sub">El mismo producto, ajustado al tamaño de tu equipo</p>
+  <div class="pricing-grid">
+    <div class="plan">
+      <h3>Individual</h3>
+      <div class="users">1 persona</div>
+      <div class="price">$250 <span>/mes</span></div>
+      <a href="/register?plan=Individual&price=250" class="btn-plan">Elegir Plan</a>
+    </div>
+    <div class="plan popular">
+      <h3>Equipo Pequeño</h3>
+      <div class="users">2 a 5 personas</div>
+      <div class="price">$500 <span>/mes</span></div>
+      <a href="/register?plan=Equipo+Peque%C3%B1o&price=500" class="btn-plan">Elegir Plan</a>
+    </div>
+    <div class="plan">
+      <h3>Equipo</h3>
+      <div class="users">6 a 15 personas</div>
+      <div class="price">$1,500 <span>/mes</span></div>
+      <a href="/register?plan=Equipo&price=1500" class="btn-plan">Elegir Plan</a>
+    </div>
+    <div class="plan">
+      <h3>Negocio</h3>
+      <div class="users">16 a 30 personas</div>
+      <div class="price">$2,500 <span>/mes</span></div>
+      <a href="/register?plan=Negocio&price=2500" class="btn-plan">Elegir Plan</a>
+    </div>
+    <div class="plan">
+      <h3>Empresarial</h3>
+      <div class="users">30+ personas</div>
+      <div class="price">$5,000 <span>/mes</span></div>
+      <p class="plan-note">Atención personalizada y gerente de cuenta dedicado</p>
+      <a href="/register?plan=Empresarial&price=5000" class="btn-plan">Contactar</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq">
+  <h2>Preguntas Frecuentes</h2>
+  <p class="sub">Resolvemos tus dudas</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">¿Puedo probarlo gratis?</div>
+      <div class="faq-a">Sí. Crea tu cuenta sin tarjeta de crédito y usa OrganizaTe el tiempo que necesites en modo de prueba. Cuando estés listo, elige el plan que mejor se ajuste a tu equipo.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Cuántos proyectos puedo tener?</div>
+      <div class="faq-a">Todos los planes incluyen proyectos ilimitados. No hay límite en la cantidad de proyectos, tareas o clientes que puedas gestionar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Puedo invitar a mi equipo?</div>
+      <div class="faq-a">Sí. Cada plan tiene un límite de usuarios. Puedes invitar a los miembros de tu equipo por correo electrónico y asignarles roles con permisos específicos.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Hay app móvil?</div>
+      <div class="faq-a">OrganizaTe funciona como aplicación web progresiva (PWA). Puedes instalarla en tu celular o computadora desde el navegador y usarla como una app nativa. También puedes descargar la app Android como APK desde el botón "Descargar App Android" en la página principal.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Mis datos están seguros?</div>
+      <div class="faq-a">Todos los datos viajan cifrados (HTTPS) y se almacenan en PostgreSQL. La autenticación es por JWT con tokens de acceso y refresco.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta">
+  <h2>¿Listo para organizar tu negocio?</h2>
+  <p>Únete a los que ya confían en OrganizaTe. Empieza gratis, sin tarjeta de crédito.</p>
+  <a href="/register" class="btn-primary">Crear Cuenta Gratis</a>
+</section>
+
+<footer>
+  <p>OrganizaTe &copy; 2026. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    this.parentElement.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>

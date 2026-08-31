@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Establecer contraseña - OrganizaTe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Inter, sans-serif; color: #212121; background: #f5f5f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .card { background: #fff; border-radius: 20px; padding: 3rem; max-width: 440px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+  .logo { font-size: 1.5rem; font-weight: 800; color: #212121; text-align: center; margin-bottom: .5rem; }
+  .logo span { color: #1976D2; }
+  h1 { font-size: 1.5rem; margin-bottom: .5rem; color: #212121; text-align: center; }
+  p { color: #757575; margin-bottom: 2rem; text-align: center; }
+  label { display: block; font-size: .85rem; font-weight: 600; color: #424242; margin-bottom: .4rem; }
+  input[type="text"], input[type="password"] { width: 100%; padding: .9rem 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; margin-bottom: 1.2rem; transition: border-color .2s; font-family: Inter, sans-serif; }
+  input[type="text"]:focus, input[type="password"]:focus { outline: none; border-color: #1976D2; }
+  .pw-wrap { position: relative; }
+  .pw-wrap input { padding-right: 3rem; }
+  .pw-toggle { position: absolute; right: 12px; top: 45%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.3rem; color: #757575; padding: 4px; line-height: 1; }
+  .pw-toggle:hover { color: #1976D2; }
+  .btn-primary { width: 100%; background: #1976D2; color: #fff; padding: .9rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background .2s; font-family: Inter, sans-serif; }
+  .btn-primary:hover { background: #1565C0; }
+  .btn-primary:disabled { background: #90CAF9; cursor: not-allowed; }
+  .error { color: #D32F2F; font-size: .85rem; margin-top: .5rem; display: none; }
+  .success { text-align: center; }
+  .success h2 { color: #2E7D32; margin-bottom: 1rem; }
+  .success p { margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+<div class="card" id="form-card">
+  <div class="logo">Organiza<span>Te</span></div>
+  <h1>Bienvenido a OrganizaTe</h1>
+  <p>Completa tus datos para activar tu cuenta</p>
+  <div id="form-container"></div>
+</div>
+<div class="card success" id="success-card" style="display:none">
+  <h2>✅ Cuenta activada</h2>
+  <p>Tu cuenta ha sido activada correctamente. Ya puedes iniciar sesión.</p>
+  <a class="btn-primary" href="https://organizate.mchtec.net">Ir a la aplicación</a>
+</div>
+<script>
+// Construir el formulario en JS para evitar autofill del navegador
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  
+  let inviteName = '';
+  let email = '';
+  if (token) {
+    try {
+      const resp = await fetch('https://backend.mchtec.net/api/auth/invitation-info?token=' + encodeURIComponent(token));
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.ok) {
+          inviteName = data.name || '';
+          email = data.email || '';
+        }
+      }
+    } catch(e) {}
+  }
+  
+  // Generar IDs aleatorios para evitar autofill
+  const idName = 'n_' + Math.random().toString(36).substr(2, 6);
+  const idPw = 'p_' + Math.random().toString(36).substr(2, 6);
+  const idConfirm = 'c_' + Math.random().toString(36).substr(2, 6);
+  
+  const container = document.getElementById('form-container');
+  container.innerHTML = 
+    '<form id="frm" onsubmit="return false" autocomplete="off">' +
+    '<label>Correo</label>' +
+    '<p style="font-size:1rem;color:#1976D2;font-weight:600;margin-bottom:1.5rem;padding:.5rem 0">' + email.replace(/"/g, '&quot;') + '</p>' +
+    '<label for="' + idName + '">Nombre completo</label>' +
+    '<input type="text" id="' + idName + '" placeholder="Tu nombre" required value="' + (inviteName.includes('@') ? '' : inviteName.replace(/"/g, '&quot;')) + '">' +
+    '<label for="' + idPw + '">Contraseña</label>' +
+    '<div class="pw-wrap">' +
+    '<input type="password" id="' + idPw + '" placeholder="Mínimo 6 caracteres" minlength="6" required>' +
+    '<button type="button" class="pw-toggle" id="t1" onclick="togglePw(\'' + idPw + '\',\'t1\')" tabindex="-1">👁️</button>' +
+    '</div>' +
+    '<label for="' + idConfirm + '">Confirmar contraseña</label>' +
+    '<div class="pw-wrap">' +
+    '<input type="password" id="' + idConfirm + '" placeholder="Repite" minlength="6" required>' +
+    '<button type="button" class="pw-toggle" id="t2" onclick="togglePw(\'' + idConfirm + '\',\'t2\')" tabindex="-1">👁️</button>' +
+    '</div>' +
+    '<div class="error" id="err">Las contraseñas no coinciden</div>' +
+    '<button type="submit" class="btn-primary" id="btn" onclick="submitForm(\'' + idPw + '\',\'' + idConfirm + '\',\'' + idName + '\')">Activar cuenta</button>' +
+    '</form>';
+}
+init();
+
+function togglePw(inputId, btnId) {
+  const i = document.getElementById(inputId);
+  const b = document.getElementById(btnId);
+  if (i.type === 'password') { i.type = 'text'; b.textContent = '🙈'; }
+  else { i.type = 'password'; b.textContent = '👁️'; }
+}
+
+async function submitForm(pwId, confirmId, nameId) {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  if (!token) { document.getElementById('err').textContent = 'Token no encontrado'; document.getElementById('err').style.display = 'block'; return; }
+  const name = document.getElementById(nameId).value.trim();
+  const pwd = document.getElementById(pwId).value;
+  const confirm = document.getElementById(confirmId).value;
+  const errorEl = document.getElementById('err');
+  const btn = document.getElementById('btn');
+  if (!name) { errorEl.textContent = 'Ingresa tu nombre'; errorEl.style.display = 'block'; return; }
+  if (pwd !== confirm) { errorEl.textContent = 'Las contraseñas no coinciden'; errorEl.style.display = 'block'; return; }
+  errorEl.style.display = 'none';
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  try {
+    const resp = await fetch('https://backend.mchtec.net/api/auth/first-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, password: pwd, name: name })
+    });
+    if (resp.ok) {
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('success-card').style.display = 'block';
+    } else {
+      const data = await resp.json();
+      errorEl.textContent = data.detail || 'Error al activar';
+      errorEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Activar cuenta';
+    }
+  } catch(e) {
+    errorEl.textContent = 'Error de conexión';
+    errorEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Activar cuenta';
+  }
+}
+</script>
+</body>
+</html>

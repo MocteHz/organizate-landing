@@ -1,0 +1,3 @@
+# El APK no va en git (101MB): se monta como volumen en el servidor
+# (/home/ubuntu/organiza-landing/descargas) via Coolify persistent storage.
+*.apk
